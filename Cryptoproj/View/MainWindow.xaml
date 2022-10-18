@@ -7,10 +7,18 @@
         x:Class="Cryptoproj.View.MainWindow"
         xmlns:sys="Cryptoproj.ViewModel" xmlns:viewmodel="clr-namespace:Cryptoproj.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DataManage}"
     mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="All currencies" Height="600" Width="1000">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+    </Window.Resources>
     <TabControl>
         <TabItem x:Name="TopTab" Header="Top">
-            <Grid Background="#FFE5E5E5" Margin="-14,0,14,0">
+            <Grid Background="#FFAFEAAF" Margin="-14,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="91*" />
                     <ColumnDefinition Width="333*"/>
@@ -20,79 +28,83 @@
                 <Grid.RowDefinitions>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <ListBox x:Name="top10" Grid.Column="0"
-                 SelectedItem="{Binding SelectedAssets}" Margin="0,0,9,0" Grid.ColumnSpan="2">
+                <ListBox x:Name="top10" Grid.Column="0" ItemsSource="{Binding top10Assets}"
+                 SelectedItem="{Binding SelectedAssets}" Margin="10,0,9,0" Grid.ColumnSpan="2" FontFamily="Book Antiqua" Background="#FFD9EACB" BorderBrush="#FF91B595">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="5">
-                                <TextBlock FontSize="18" Text="{Binding Id}"/>
-                                <TextBlock Text="{Binding Rank}"/>
-                                <TextBlock Text="{Binding Name}"/>
-                                <TextBlock Text="{Binding PriceUsd}"/>
+                                <TextBlock FontSize="25" Text="{Binding Rank}"/>
+                                <TextBlock FontSize="20" Text="{Binding Name}"/>
+                                <TextBlock FontSize="15" Text="{Binding PriceUsd}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
                 <StackPanel DataContext="{Binding SelectedAssets}" Margin="1,0,0,0" Grid.Column="2" Grid.ColumnSpan="2">
-                    <TextBlock Text="Selected currency info:" Width="379"/>
-                    <TextBlock Text="Id:"/>
-                    <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="Rank:"/>
-                    <TextBox Text="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="Name:"/>
-                    <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="PriceUsd:"/>
-                    <TextBox Text="{Binding PriceUsd, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Selected currency info:" Width="379" FontFamily="Segoe UI Semibold" FontSize="16"/>
+                    <TextBlock Text="Id:" FontSize="14" FontFamily="Segoe UI Semibold"/>
+                    <TextBox Text ="{Binding Id, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB"/>
+                    <TextBlock Text="Rank:" FontFamily="Segoe UI Semibold"/>
+                    <TextBox Text="{Binding Rank, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB"/>
+                    <TextBlock Text="PriceUsd:" FontFamily="Segoe UI Semibold"/>
+                    <TextBox Text="{Binding PriceUsd, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB"/>
                 </StackPanel>
             </Grid>
         </TabItem>
         <TabItem x:Name="InformationTab" Header="Information">
-            <Grid Background="#FFE5E5E5">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="0.8*" />
-                    </Grid.ColumnDefinitions>
+            <Grid Background="#FFAFEAAF" RenderTransformOrigin="0.666,0.529" Margin="-28,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="477*"/>
+                    <ColumnDefinition Width="0*"/>
 
-                    <ListBox Grid.Column="0" ItemsSource="{Binding assetsList}"
-                 SelectedItem="{Binding SelectedAssets}">
+                </Grid.ColumnDefinitions>
+                <Grid Margin="0,0,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition Width="0*"/>
+                        <ColumnDefinition Width="33*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Grid.Column="0" ItemsSource="{Binding assetsList, UpdateSourceTrigger=PropertyChanged}"
+                 SelectedItem="{Binding SelectedAssets}" Margin="0,0,5,0" Background="#FFD9EACB">
+
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="5">
-                                    <TextBlock FontSize="18" Text="{Binding Path=Id}" />
-                                    <TextBlock Text="{Binding Path=Company}" />
-                                    <TextBlock Text="{Binding Path=Price}" />
+                                    <TextBlock FontSize="25" Text="{Binding Path=Name}" />
+                                    <TextBlock FontSize="15" Text="{Binding Path=PriceUsd}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <StackPanel Grid.Column="1" DataContext="{Binding SelectedAssets}">
-                        <TextBlock Text="info:"/>
-                        <TextBlock Text="Id:"/>
-                        <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="Rank:" />
-                        <TextBox Text="{Binding Rank, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="Symbol:"/>
-                        <TextBox Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="Name:" />
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="Supply:"/>
-                        <TextBox Text="{Binding Supply, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="MaxSupply:"/>
-                        <TextBox Text="{Binding MaxSupply, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="MarketCapUsd:"/>
-                        <TextBox Text="{Binding MarketCapUsd, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="VolumeUsd24Hr:"/>
-                        <TextBox Text="{Binding VolumeUsd24Hr, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="PriceUsd:"/>
-                        <TextBox Text="{Binding PriceUsd, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="ChangePercent24Hr:"/>
-                        <TextBox Text="{Binding ChangePercent24Hr, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBlock Text="Vwap24Hr:"/>
-                        <TextBox Text="{Binding Vwap24Hr, UpdateSourceTrigger=PropertyChanged}"/>
+                    <StackPanel Grid.Column="2" DataContext="{Binding SelectedAssets}" Margin="10,46,-5,0">
+                        <TextBlock Text="info:" FontFamily="Segoe UI Semibold" FontSize="16" Height="25" Width="452"/>
+                        <TextBlock Text="Id:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="Rank:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding Rank, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="Symbol:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="Name:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="Supply:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding Supply, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="MaxSupply:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding MaxSupply, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="MarketCapUsd:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding MarketCapUsd, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="VolumeUsd24Hr:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding VolumeUsd24Hr, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB" FontFamily="Times New Roman"/>
+                        <TextBlock Text="PriceUsd:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding PriceUsd, UpdateSourceTrigger=PropertyChanged}" Background="#FFD9EACB"/>
+                        <TextBlock Text="ChangePercent24Hr:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding ChangePercent24Hr, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB"/>
+                        <TextBlock Text="Vwap24Hr:" FontFamily="Segoe UI Semibold"/>
+                        <TextBox Text="{Binding Vwap24Hr, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Background="#FFD9EACB"/>
                     </StackPanel>
+                    <Label Grid.Column="2" Content="Request:" HorizontalAlignment="Left" Margin="0,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.526,0.772" FontFamily="Segoe UI Semibold" FontSize="16" FontWeight="Bold"/>
+                    <TextBox x:Name="searchbox" Grid.Column="2" HorizontalAlignment="Left" Margin="74,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="25" Background="#FFD9EACB" FontFamily="Times New Roman" FontSize="20"/>
+                    <Button Click="Find" x:Name="FindButton" Grid.Column="2" Content="Find by name" HorizontalAlignment="Left" Margin="213,12,0,0" VerticalAlignment="Top" Width="100" Height="25" FontSize="14" FontFamily="Segoe UI Historic" Background="#FFC6DDB1"/>
                 </Grid>
             </Grid>
         </TabItem>

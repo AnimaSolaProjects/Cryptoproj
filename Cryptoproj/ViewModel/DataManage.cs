@@ -1,32 +1,29 @@
 ﻿using Cryptoproj.Models;
-using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace Cryptoproj.ViewModel
 {
     public class DataManage : INotifyPropertyChanged
     {
-        public AssetsList assetsList { get; set; } 
-        
-        private Assets selectedAssets;
+        // View module of the cryptocurrency list
+        public ObservableCollection<Assets> assetsList { get; } = DataFilling.GetAllCurrencies().data;
+        public ObservableCollection<Assets> top10Assets { get; } = DataFilling.Get10TopCurrencies();
+        // View module of the selected cryptocurrency
+        public Assets selectedAssets;
         public Assets SelectedAssets
         {
             get { return selectedAssets; }
             set
             {
                 selectedAssets = value;
-                OnPropertyChanged("SelectedPhone");
+                OnPropertyChanged("SelectedAssets");
             }
-        }
-
-        public DataManage()
-        {
-            assetsList = DataFilling.GetAllCurrencies();
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

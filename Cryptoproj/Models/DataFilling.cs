@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 
 namespace Cryptoproj.Models
 {
     public static class DataFilling
     {
-        private static readonly Uri ApiEndPoint = new Uri("https://api.coincap.io/v2/rates");
+        private static readonly Uri ApiEndPoint = new Uri("https://api.coincap.io/v2/assets");
 
+        // filling the data list with all available cryptocurrency
         public static AssetsList GetAllCurrencies()
         {
             using (var client = new HttpClient())
@@ -21,20 +21,15 @@ namespace Cryptoproj.Models
                 return CurrenciesList;
             }
         }
-        public static List<Assets> Get10TopCurrencies()
+        // filling in the data list top 10 most popular cryptocurrencies
+        public static ObservableCollection<Assets> Get10TopCurrencies()
         {
             var kek = GetAllCurrencies();
-            List<Assets> currencies = new List<Assets>();
+            ObservableCollection<Assets> currencies = new ObservableCollection<Assets>();
             for (int i = 0; i < 10; i++)
-                currencies.Add(kek.data[i]);
+                 currencies.Add(kek.data[i]);
 
             return currencies;
-        }
-        public static Assets GetAssetsByNameOrID(string Name, string Id)
-        {
-            Assets FoundAssetsbyName = GetAllCurrencies().data.FirstOrDefault(p => p.Name == Name || p.Id == Id);
-
-            return FoundAssetsbyName;
         }
     }
 }
