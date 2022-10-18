@@ -65,7 +65,7 @@
                         <ColumnDefinition Width="33*"/>
                     </Grid.ColumnDefinitions>
                     <ListBox Grid.Column="0" ItemsSource="{Binding assetsList, UpdateSourceTrigger=PropertyChanged}"
-                 SelectedItem="{Binding SelectedAssets}" Margin="0,0,5,0" Background="#FFD9EACB">
+                 SelectedItem="{Binding SelectedAssets}" Margin="25,0,5,0" Background="#FFD9EACB">
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
